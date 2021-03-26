@@ -1,3 +1,3 @@
 output "sample" {
-  value = "Hello World"
+  value = "Hello World New Plugin"
 }
