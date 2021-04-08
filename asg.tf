@@ -14,7 +14,7 @@ resource "aws_autoscaling_group" "asg" {
     id                      = aws_launch_template.asg.id
     version                 = "$Latest"
 }
-  vpc_zone_identifier       = [aws_subnet.example1.id, aws_subnet.example2.id]
+  vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS
 
 
   tag {
