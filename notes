@@ -1,0 +1,7 @@
+variable declaration in terraform is painful process
+we should declare variables in root module as well as sub module
+for example .. ENV,bucket,COMPONENT etc
+in this case variables declared in frontend(vars.tf) and assigned values at dev.tfvars and passed these
+variables to submodule asg,
+In asg again we should declare variables in asg(vars.tf) and access here in sub module asg
+
