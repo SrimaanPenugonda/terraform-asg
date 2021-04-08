@@ -10,5 +10,6 @@ data "terraform_remote_state" "vpc" {
   config         = {
     bucket       = var.bucket //existing bucket name to access VPC state files
     key          = "vpc/${var.ENV}/terraform.tfstate" //path in bucket
+    region       = var.region
   }
 }
