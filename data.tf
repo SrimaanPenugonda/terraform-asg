@@ -1,9 +1,9 @@
 data "aws_ami" "ami" {
   most_recent   = true
-  owners        = ["994885348244"]
+  owners        = ["self"]
   filter {
     name   = "name"
-    values = ["frontend"]
+    values = [var.COMPONENT]
   }
 }
 
