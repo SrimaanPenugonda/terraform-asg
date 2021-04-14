@@ -1,9 +1,9 @@
 data "aws_ami" "ami" {
   most_recent   = true
-  owners        = ["973714476881"]
+  owners        = ["994885348244"]
   filter {
     name   = "name"
-    values = ["Centos-7-DevOps-Practice"]
+    values = ["frontend"]
   }
 }
 
