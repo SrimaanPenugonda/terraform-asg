@@ -15,6 +15,7 @@ resource "aws_autoscaling_group" "asg" {
     version                 = "$Latest"
 }
   vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS
+  target_group_arns         = [aws_lb_target_group.tg.arn]
 }
 
 //creating target group
