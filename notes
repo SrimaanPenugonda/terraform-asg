@@ -6,7 +6,10 @@ variables to submodule asg,
 In asg again we should declare variables in asg(vars.tf) and access here in sub module asg
 
 -
+S27
 After Creating Loadbalancer
     now create target grp and attach to this auto scaling group
     resource "aws_lb_target_group" "tg"
         give health check information
+        add listner
+        resource "aws_lb_listener" "frontend" {
