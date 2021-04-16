@@ -2,7 +2,7 @@ resource "aws_launch_template" "asg" {
   name                      = "${var.COMPONENT}-${var.ENV}-template"
   image_id                  = data.aws_ami.ami.id
   instance_type             = var.INSTANCE_TYPE
-  vpc_security_group_ids    = aws_security_group.allow_component.id
+  vpc_security_group_ids    = [aws_security_group.allow_component.id]
 }
 //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group
 resource "aws_autoscaling_group" "asg" {
