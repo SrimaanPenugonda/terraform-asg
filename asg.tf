@@ -1,7 +1,8 @@
 resource "aws_launch_template" "asg" {
-  name            = "${var.COMPONENT}-${var.ENV}-template"
-  image_id        = data.aws_ami.ami.id
-  instance_type   = var.INSTANCE_TYPE
+  name                      = "${var.COMPONENT}-${var.ENV}-template"
+  image_id                  = data.aws_ami.ami.id
+  instance_type             = var.INSTANCE_TYPE
+  vpc_security_group_ids    = aws_security_group.allow_component.id
 }
 //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group
 resource "aws_autoscaling_group" "asg" {
@@ -39,7 +40,8 @@ resource "aws_security_group" "allow_component" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] // allow only VPC and workstation - give VPC Cidr block
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR,data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
+      // open only to main VPC and workstation - give main VPC cidr block
     //and workstation cidr block
 
   }
@@ -48,7 +50,7 @@ resource "aws_security_group" "allow_component" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] // allow internet
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR] //open only to main VPC
   }
 
   egress {
