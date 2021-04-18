@@ -38,7 +38,7 @@ resource "aws_lb_target_group" "tg" {
 
 resource "aws_security_group" "allow_component" {
   name        = "allow-${var.COMPONENT}-${var.ENV}-sg"
-  description = "Allow components to AMI"
+  description = "allow-${var.COMPONENT}-${var.ENV}-sg"
   vpc_id      = data.terraform_remote_state.vpc.outputs.VPC_ID
 
   ingress {
@@ -53,8 +53,8 @@ resource "aws_security_group" "allow_component" {
   }
   ingress {
     description = "HTTP"
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.PORT
+    to_port     = var.PORT
     protocol    = "tcp"
     cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR] //open only to main VPC
   }
@@ -67,6 +67,6 @@ resource "aws_security_group" "allow_component" {
   }
 
   tags = {
-    Name = "allow-${var.COMPONENT}-ami-sg"
+    Name = "allow-${var.COMPONENT}-${var.ENV}-sg"
   }
 }
