@@ -18,6 +18,11 @@ resource "aws_autoscaling_group" "asg" {
   }
   vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS
   target_group_arns         = [aws_lb_target_group.tg.arn]
+  tag { // tags for instances that launch from this asg
+    key                     = "Name"
+    propagate_at_launch     = true
+    value                   = "${var.COMPONENT}-${var.ENV}"
+  }
 }
 
 //creating target group
