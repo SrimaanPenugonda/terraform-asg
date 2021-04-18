@@ -15,7 +15,7 @@ resource "aws_autoscaling_group" "asg" {
   launch_template {           //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group#launch_template
     id                      = aws_launch_template.asg.id
     version                 = "$Latest"
-}
+  }
   vpc_zone_identifier       = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS
   target_group_arns         = [aws_lb_target_group.tg.arn]
 }
