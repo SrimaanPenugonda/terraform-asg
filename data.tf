@@ -3,7 +3,7 @@ data "aws_ami" "ami" {
   owners        = ["self"]
   filter {
     name   = "name"
-    values = [var.COMPONENT]
+    values = ["${var.COMPONENT}-${var.APP_ARTIFACT_VERSION}"]
   }
 }
 
