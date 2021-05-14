@@ -49,7 +49,15 @@ resource "aws_security_group" "allow_component" {
     cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR,data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
       // open only to main VPC and workstation - give main VPC cidr block
     //and workstation cidr block
-
+  }
+  ingress {
+    description = "PROMETHEUS"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR,data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
+    // open only to main VPC and workstation - give main VPC cidr block
+    //and workstation cidr block
   }
   ingress {
     description = "HTTP"
