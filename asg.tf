@@ -8,7 +8,7 @@ resource "aws_launch_template" "asg" {
 //https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group
 resource "aws_autoscaling_group" "asg" {
   name                      = "${var.COMPONENT}-${var.ENV}-asg"
-  max_size                  = 1
+  max_size                  = var.ASG_MAX_INSTANCES
   min_size                  = 1
   desired_capacity          = 1
   force_delete              = true
@@ -22,6 +22,21 @@ resource "aws_autoscaling_group" "asg" {
     key                     = "Name"
     propagate_at_launch     = true
     value                   = "${var.COMPONENT}-${var.ENV}"
+  }
+}
+resource "aws_autoscaling_policy" "asgp" {
+  name                   = "${var.COMPONENT}-${var.ENV}-cpu-based"
+  adjustment_type        = "ChangeInCapacity"
+  policy_type            = "TargetTrackingScaling"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  estimated_instance_warmup = "120"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value            = var.ASG_LOAD_AVG
   }
 }
 

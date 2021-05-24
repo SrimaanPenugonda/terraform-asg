@@ -6,3 +6,5 @@ variable "region"         {}
 variable "PORT"           {}
 variable "HEALTH"         {}
 variable "APP_ARTIFACT_VERSION" {}
+variable "ASG_LOAD_AVG" {}
+variable "ASG_MAX_INSTANCES" {}
